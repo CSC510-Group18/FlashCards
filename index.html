@@ -141,12 +141,16 @@
 <dt class="sig sig-object py" id="src.auth.routes.login">
 <span class="sig-prename descclassname"><span class="pre">src.auth.routes.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/auth/routes.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.auth.routes.login" title="Link to this definition"></a></dt>
 <dd><p>this method is used by registered users to sign in to their account</p>
+<p>POST /login [email, password]
+payload: { email: “string”, password: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.auth.routes.signup">
 <span class="sig-prename descclassname"><span class="pre">src.auth.routes.</span></span><span class="sig-name descname"><span class="pre">signup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/auth/routes.html#signup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.auth.routes.signup" title="Link to this definition"></a></dt>
 <dd><p>this method is used to create new users and register them in firebase</p>
+<p>POST /signup [email, password]
+payload: { email: “string”, password: “string” }</p>
 </dd></dl>
 
 </section>
@@ -158,18 +162,22 @@
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">createcards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#createcards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.createcards" title="Link to this definition"></a></dt>
 <dd><p>This method is routed when the user requests to create new cards in a deck.
 Only the deckid is required to add cards to a deck.</p>
+<p>POST /deck/{deckId}/card/create
+payload: { localId: “string”, cards: [{front: “string”, back: “string”, hint: “string”}] }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.cards.routes.deletecard">
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">deletecard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#deletecard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.deletecard" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user requests to delete the card. The deckid and the particular cardid is required to delete the card.</p>
+<p>DELETE /deck/{id}/delete/{cardid}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.cards.routes.getcards">
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">getcards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#getcards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.getcards" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user want to fetch all of the cards in a deck. Only the deckid is required to fetch all cards from the required deck.</p>
+<p>GET /deck/{deckId}/card/all</p>
 </dd></dl>
 
 <dl class="py function">
@@ -177,6 +185,8 @@ Only the deckid is required to add cards to a deck.</p>
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">updatecard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#updatecard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.updatecard" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user requests to update cards in a deck. The card can be updated in terms of its word and meaning.
 Here deckid and cardid is required to uniquely identify a updating card.</p>
+<p>PATCH /deck/{id}/update/{cardid}
+payload: { word: “string”, meaning: “string” }</p>
 </dd></dl>
 
 </section>
@@ -187,54 +197,66 @@ Here deckid and cardid is required to uniquely identify a updating card.</p>
 <dt class="sig sig-object py" id="src.deck.routes.create">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.create" title="Link to this definition"></a></dt>
 <dd><p>Create a new deck.</p>
+<p>POST /deck/create
+payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.delete">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.delete" title="Link to this definition"></a></dt>
 <dd><p>Delete a deck.</p>
+<p>DELETE /deck/delete/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.get_leaderboard">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_leaderboard" title="Link to this definition"></a></dt>
 <dd><p>This endpoint fetches the leaderboard data for a specific deck.</p>
+<p>GET /deck/{deckId}/leaderboard</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.get_user_score">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_user_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_user_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_user_score" title="Link to this definition"></a></dt>
 <dd><p>This endpoint fetches the user’s score for a specific deck. If the user doesn’t exist, return zero for all score values.</p>
+<p>GET /deck/{deckId}/user-score/{userId}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.getdeck">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdeck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdeck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdeck" title="Link to this definition"></a></dt>
 <dd><p>This method fetches a specific deck by its ID.</p>
+<p>GET /deck/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.getdecks">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdecks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdecks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdecks" title="Link to this definition"></a></dt>
 <dd><p>Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</p>
+<p>GET /deck/all</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.update">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update" title="Link to this definition"></a></dt>
 <dd><p>Update an existing deck.</p>
+<p>PATCH /deck/update/{id}
+payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.update_last_opened">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update_last_opened</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update_last_opened"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update_last_opened" title="Link to this definition"></a></dt>
 <dd><p>Update the lastOpened timestamp when a deck is opened.</p>
+<p>PATCH /deck/updateLastOpened/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.update_leaderboard">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deck_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update_leaderboard" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>POST /deck/{deck_id}/update-leaderboard
+payload: { userId: “string”, userEmail: “string”, correct: “number”, incorrect: “number” }</p>
+</dd></dl>
 
 </section>
 <section id="module-src.folders.routes">
@@ -244,47 +266,59 @@ Here deckid and cardid is required to uniquely identify a updating card.</p>
 <dt class="sig sig-object py" id="src.folders.routes.adddecktofolder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">adddecktofolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#adddecktofolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.adddecktofolder" title="Link to this definition"></a></dt>
 <dd><p>This method allows the user to add a deck to a folder by folderId and deckId.</p>
+<p>POST /deck/add-deck
+payload: { folderId: “string”, deckId: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.createfolder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">createfolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#createfolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.createfolder" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>POST /folder/create
+payload: { name: “string”, userId: “string” }</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.deletefolder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">deletefolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#deletefolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.deletefolder" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user requests to delete a folder.</p>
+<p>DELETE /folder/delete/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.get_decks_for_folder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">get_decks_for_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#get_decks_for_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.get_decks_for_folder" title="Link to this definition"></a></dt>
 <dd><p>This method is called to fetch all decks for a specific folder.</p>
+<p>GET /decks/{folder_id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.getfolder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">getfolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#getfolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.getfolder" title="Link to this definition"></a></dt>
 <dd><p>This method is called when we want to fetch one of the folders by folder ID</p>
+<p>GET /folder/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.getfolders">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">getfolders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#getfolders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.getfolders" title="Link to this definition"></a></dt>
 <dd><p>This method is called when we want to fetch all folders for a specific user</p>
+<p>GET /folders/all</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.removedeckfromfolder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">removedeckfromfolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#removedeckfromfolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.removedeckfromfolder" title="Link to this definition"></a></dt>
 <dd><p>This method allows the user to remove a deck from a folder by folderId and deckId.</p>
+<p>DELETE /folder/remove-deck
+payload: { folderId: “string”, deckId: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.folders.routes.updatefolder">
 <span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">updatefolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#updatefolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.updatefolder" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user wants to update a folder’s name.</p>
+<p>PATCH /folder/update/{id}
+payload: { name: “string” }</p>
 </dd></dl>
 
 </section>

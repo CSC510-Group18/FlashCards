@@ -107,7 +107,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getdeck</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method fetches a specific deck by its ID.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method fetches a specific deck by its ID.</span>
+<span class="sd">    </span>
+<span class="sd">    GET /deck/{id}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">deck</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
@@ -128,7 +131,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/all&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getdecks</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</span>
+<span class="sd">    </span>
+<span class="sd">    GET /deck/all</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span>
     <span class="n">localId</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;localId&#39;</span><span class="p">)</span>
     
@@ -161,7 +167,11 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/create&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Create a new deck.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Create a new deck.</span>
+<span class="sd">    </span>
+<span class="sd">    POST /deck/create</span>
+<span class="sd">    payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
@@ -188,7 +198,11 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/update/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PATCH&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update an existing deck.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update an existing deck.</span>
+<span class="sd">    </span>
+<span class="sd">    PATCH /deck/update/{id}</span>
+<span class="sd">    payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
@@ -213,7 +227,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/delete/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Delete a deck.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Delete a deck.</span>
+<span class="sd">    </span>
+<span class="sd">    DELETE /deck/delete/{id}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;Delete Deck Successful&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
@@ -226,7 +243,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/updateLastOpened/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PATCH&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_last_opened</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update the lastOpened timestamp when a deck is opened.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update the lastOpened timestamp when a deck is opened.</span>
+<span class="sd">    </span>
+<span class="sd">    PATCH /deck/updateLastOpened/{id}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">current_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
         <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;lastOpened&quot;</span><span class="p">:</span> <span class="n">current_time</span><span class="p">})</span>
@@ -242,7 +262,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deckId&gt;/leaderboard&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_leaderboard</span><span class="p">(</span><span class="n">deckId</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This endpoint fetches the leaderboard data for a specific deck.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;This endpoint fetches the leaderboard data for a specific deck.</span>
+<span class="sd">    </span>
+<span class="sd">    GET /deck/{deckId}/leaderboard</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Fetch leaderboard data for the given deck</span>
         <span class="n">leaderboard_entries</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
@@ -277,6 +300,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deck_id&gt;/update-leaderboard&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_leaderboard</span><span class="p">(</span><span class="n">deck_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    POST /deck/{deck_id}/update-leaderboard</span>
+<span class="sd">    payload: { userId: “string”, userEmail: “string”, correct: “number”, incorrect: “number” }</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="c1"># Extract values from the request body</span>
@@ -308,7 +335,10 @@
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deckId&gt;/user-score/&lt;userId&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_user_score</span><span class="p">(</span><span class="n">deckId</span><span class="p">,</span> <span class="n">userId</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This endpoint fetches the user&#39;s score for a specific deck. If the user doesn&#39;t exist, return zero for all score values.&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;This endpoint fetches the user&#39;s score for a specific deck. If the user doesn&#39;t exist, return zero for all score values.</span>
+<span class="sd">    </span>
+<span class="sd">    GET /deck/{deckId}/user-score/{userId}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Fetch the user&#39;s leaderboard entry for the specified deck</span>
         <span class="n">leaderboard_entry</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
