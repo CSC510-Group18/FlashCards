@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to FlashCards Backend’s documentation! &mdash; FlashCards Backend  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            FlashCards Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to FlashCards Backend’s documentation!</a></li>
+<li><a class="reference internal" href="#api-documentation">API Documentation</a><ul>
+<li><a class="reference internal" href="#module-src.api">API Module</a><ul>
+<li><a class="reference internal" href="#src.api.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.auth.routes">Authentication Module</a><ul>
+<li><a class="reference internal" href="#src.auth.routes.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li><a class="reference internal" href="#src.auth.routes.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li><a class="reference internal" href="#src.auth.routes.signup"><code class="docutils literal notranslate"><span class="pre">signup()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.cards.routes">Cards Module</a><ul>
+<li><a class="reference internal" href="#src.cards.routes.createcards"><code class="docutils literal notranslate"><span class="pre">createcards()</span></code></a></li>
+<li><a class="reference internal" href="#src.cards.routes.deletecard"><code class="docutils literal notranslate"><span class="pre">deletecard()</span></code></a></li>
+<li><a class="reference internal" href="#src.cards.routes.getcards"><code class="docutils literal notranslate"><span class="pre">getcards()</span></code></a></li>
+<li><a class="reference internal" href="#src.cards.routes.updatecard"><code class="docutils literal notranslate"><span class="pre">updatecard()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.deck.routes">Deck Module</a><ul>
+<li><a class="reference internal" href="#src.deck.routes.create"><code class="docutils literal notranslate"><span class="pre">create()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.get_leaderboard"><code class="docutils literal notranslate"><span class="pre">get_leaderboard()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.get_user_score"><code class="docutils literal notranslate"><span class="pre">get_user_score()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.getdeck"><code class="docutils literal notranslate"><span class="pre">getdeck()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.getdecks"><code class="docutils literal notranslate"><span class="pre">getdecks()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.update"><code class="docutils literal notranslate"><span class="pre">update()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.update_last_opened"><code class="docutils literal notranslate"><span class="pre">update_last_opened()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.update_leaderboard"><code class="docutils literal notranslate"><span class="pre">update_leaderboard()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.folders.routes">Folders Module</a><ul>
+<li><a class="reference internal" href="#src.folders.routes.adddecktofolder"><code class="docutils literal notranslate"><span class="pre">adddecktofolder()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.createfolder"><code class="docutils literal notranslate"><span class="pre">createfolder()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.deletefolder"><code class="docutils literal notranslate"><span class="pre">deletefolder()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.get_decks_for_folder"><code class="docutils literal notranslate"><span class="pre">get_decks_for_folder()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.getfolder"><code class="docutils literal notranslate"><span class="pre">getfolder()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.getfolders"><code class="docutils literal notranslate"><span class="pre">getfolders()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.removedeckfromfolder"><code class="docutils literal notranslate"><span class="pre">removedeckfromfolder()</span></code></a></li>
+<li><a class="reference internal" href="#src.folders.routes.updatefolder"><code class="docutils literal notranslate"><span class="pre">updatefolder()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">FlashCards Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to FlashCards Backend’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-flashcards-backend-s-documentation">
+<h1>Welcome to FlashCards Backend’s documentation!<a class="headerlink" href="#welcome-to-flashcards-backend-s-documentation" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Link to this heading"></a></h1>
+<section id="module-src.api">
+<span id="api-module"></span><h2>API Module<a class="headerlink" href="#module-src.api" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.create_app">
+<span class="sig-prename descclassname"><span class="pre">src.api.</span></span><span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api.html#create_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.create_app" title="Link to this definition"></a></dt>
+<dd><p>Create Flask application.</p>
+</dd></dl>
+
+</section>
+<section id="module-src.auth.routes">
+<span id="authentication-module"></span><h2>Authentication Module<a class="headerlink" href="#module-src.auth.routes" title="Link to this heading"></a></h2>
+<p>import dependancies</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.auth.routes.index">
+<span class="sig-prename descclassname"><span class="pre">src.auth.routes.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/auth/routes.html#index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.auth.routes.index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.auth.routes.login">
+<span class="sig-prename descclassname"><span class="pre">src.auth.routes.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/auth/routes.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.auth.routes.login" title="Link to this definition"></a></dt>
+<dd><p>this method is used by registered users to sign in to their account</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.auth.routes.signup">
+<span class="sig-prename descclassname"><span class="pre">src.auth.routes.</span></span><span class="sig-name descname"><span class="pre">signup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/auth/routes.html#signup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.auth.routes.signup" title="Link to this definition"></a></dt>
+<dd><p>this method is used to create new users and register them in firebase</p>
+</dd></dl>
+
+</section>
+<section id="module-src.cards.routes">
+<span id="cards-module"></span><h2>Cards Module<a class="headerlink" href="#module-src.cards.routes" title="Link to this heading"></a></h2>
+<p>routes.py is a file in cards folder that has all the functions defined that manipulate the cards. All CRUD functions that needs to be performed on cards are defined here.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.cards.routes.createcards">
+<span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">createcards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#createcards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.createcards" title="Link to this definition"></a></dt>
+<dd><p>This method is routed when the user requests to create new cards in a deck.
+Only the deckid is required to add cards to a deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.cards.routes.deletecard">
+<span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">deletecard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#deletecard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.deletecard" title="Link to this definition"></a></dt>
+<dd><p>This method is called when the user requests to delete the card. The deckid and the particular cardid is required to delete the card.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.cards.routes.getcards">
+<span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">getcards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#getcards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.getcards" title="Link to this definition"></a></dt>
+<dd><p>This method is called when the user want to fetch all of the cards in a deck. Only the deckid is required to fetch all cards from the required deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.cards.routes.updatecard">
+<span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">updatecard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#updatecard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.updatecard" title="Link to this definition"></a></dt>
+<dd><p>This method is called when the user requests to update cards in a deck. The card can be updated in terms of its word and meaning.
+Here deckid and cardid is required to uniquely identify a updating card.</p>
+</dd></dl>
+
+</section>
+<section id="module-src.deck.routes">
+<span id="deck-module"></span><h2>Deck Module<a class="headerlink" href="#module-src.deck.routes" title="Link to this heading"></a></h2>
+<p>routes.py is a file in deck folder that has all the functions defined that manipulate the deck. All CRUD functions are defined here.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.create">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.create" title="Link to this definition"></a></dt>
+<dd><p>Create a new deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.delete">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.delete" title="Link to this definition"></a></dt>
+<dd><p>Delete a deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.get_leaderboard">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_leaderboard" title="Link to this definition"></a></dt>
+<dd><p>This endpoint fetches the leaderboard data for a specific deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.get_user_score">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_user_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_user_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_user_score" title="Link to this definition"></a></dt>
+<dd><p>This endpoint fetches the user’s score for a specific deck. If the user doesn’t exist, return zero for all score values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.getdeck">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdeck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdeck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdeck" title="Link to this definition"></a></dt>
+<dd><p>This method fetches a specific deck by its ID.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.getdecks">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdecks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdecks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdecks" title="Link to this definition"></a></dt>
+<dd><p>Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.update">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update" title="Link to this definition"></a></dt>
+<dd><p>Update an existing deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.update_last_opened">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update_last_opened</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update_last_opened"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update_last_opened" title="Link to this definition"></a></dt>
+<dd><p>Update the lastOpened timestamp when a deck is opened.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.update_leaderboard">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deck_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update_leaderboard" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-src.folders.routes">
+<span id="folders-module"></span><h2>Folders Module<a class="headerlink" href="#module-src.folders.routes" title="Link to this heading"></a></h2>
+<p>routes.py is a file in the folder folder that has all the functions defined that manipulate folders. All CRUD functions are defined here.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.adddecktofolder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">adddecktofolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#adddecktofolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.adddecktofolder" title="Link to this definition"></a></dt>
+<dd><p>This method allows the user to add a deck to a folder by folderId and deckId.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.createfolder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">createfolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#createfolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.createfolder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.deletefolder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">deletefolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#deletefolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.deletefolder" title="Link to this definition"></a></dt>
+<dd><p>This method is called when the user requests to delete a folder.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.get_decks_for_folder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">get_decks_for_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#get_decks_for_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.get_decks_for_folder" title="Link to this definition"></a></dt>
+<dd><p>This method is called to fetch all decks for a specific folder.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.getfolder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">getfolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#getfolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.getfolder" title="Link to this definition"></a></dt>
+<dd><p>This method is called when we want to fetch one of the folders by folder ID</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.getfolders">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">getfolders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#getfolders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.getfolders" title="Link to this definition"></a></dt>
+<dd><p>This method is called when we want to fetch all folders for a specific user</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.removedeckfromfolder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">removedeckfromfolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#removedeckfromfolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.removedeckfromfolder" title="Link to this definition"></a></dt>
+<dd><p>This method allows the user to remove a deck from a folder by folderId and deckId.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.folders.routes.updatefolder">
+<span class="sig-prename descclassname"><span class="pre">src.folders.routes.</span></span><span class="sig-name descname"><span class="pre">updatefolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/folders/routes.html#updatefolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.folders.routes.updatefolder" title="Link to this definition"></a></dt>
+<dd><p>This method is called when the user wants to update a folder’s name.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright none.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
