@@ -66,29 +66,30 @@
            <div itemprop="articleBody">
              
   <h1>Source code for src.deck.routes</h1><div class="highlight"><pre>
-<span></span><span class="c1">#MIT License</span>
+<span></span><span class="c1"># MIT License</span>
 <span class="c1">#</span>
-<span class="c1">#Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto</span>
+<span class="c1"># Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto</span>
 <span class="c1">#</span>
-<span class="c1">#Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1">#of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1">#in the Software without restriction, including without limitation the rights</span>
-<span class="c1">#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1">#copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1">#furnished to do so, subject to the following conditions:</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
 <span class="c1">#</span>
-<span class="c1">#The above copyright notice and this permission notice shall be included in all</span>
-<span class="c1">#copies or substantial portions of the Software.</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
 <span class="c1">#</span>
-<span class="c1">#THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1">#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1">#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1">#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1">#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1">#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
-<span class="c1">#SOFTWARE.</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
 
-<span class="sd">&#39;&#39;&#39;routes.py is a file in deck folder that has all the functions defined that manipulate the deck. All CRUD functions are defined here.&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;routes.py is a file in deck folder that has all the functions defined that manipulate the deck. All CRUD functions are defined here.&quot;&quot;&quot;</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">request</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flask_cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_origin</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
@@ -99,211 +100,227 @@
     <span class="kn">from</span><span class="w"> </span><span class="nn">__init__</span><span class="w"> </span><span class="kn">import</span> <span class="n">firebase</span>
 
 
-<span class="n">deck_bp</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;deck_bp&#39;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+<span class="n">deck_bp</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s2">&quot;deck_bp&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 <span class="n">db</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+
 
 <div class="viewcode-block" id="getdeck">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.getdeck">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getdeck</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method fetches a specific deck by its ID.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method fetches a specific deck by its ID.</span>
+
 <span class="sd">    GET /deck/{id}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">deck</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">deck</span><span class="o">=</span><span class="n">deck</span><span class="o">.</span><span class="n">val</span><span class="p">(),</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Fetched deck successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
+            <span class="n">deck</span><span class="o">=</span><span class="n">deck</span><span class="o">.</span><span class="n">val</span><span class="p">(),</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Fetched deck successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
         <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">decks</span><span class="o">=</span><span class="p">[],</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">decks</span><span class="o">=</span><span class="p">[],</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+
 
 
 <div class="viewcode-block" id="getdecks">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.getdecks">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/all&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/all&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getdecks</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</span>
+
 <span class="sd">    GET /deck/all</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span>
-    <span class="n">localId</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;localId&#39;</span><span class="p">)</span>
-    
+    <span class="n">localId</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;localId&quot;</span><span class="p">)</span>
+
     <span class="k">try</span><span class="p">:</span>
         <span class="n">decks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">localId</span><span class="p">:</span>
-            <span class="n">user_decks</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">localId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">user_decks</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">localId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="p">)</span>
             <span class="k">for</span> <span class="n">deck</span> <span class="ow">in</span> <span class="n">user_decks</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
                 <span class="n">obj</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
-                <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
-                <span class="n">cards</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-                <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;cards_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">())</span> <span class="k">if</span> <span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
+                <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+                <span class="n">cards</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;cards_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">())</span> <span class="k">if</span> <span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
                 <span class="n">decks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">alldecks</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;visibility&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">alldecks</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;visibility&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="p">)</span>
             <span class="k">for</span> <span class="n">deck</span> <span class="ow">in</span> <span class="n">alldecks</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
                 <span class="n">obj</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
-                <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
-                <span class="n">cards</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-                <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;cards_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">())</span> <span class="k">if</span> <span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
+                <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+                <span class="n">cards</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;cards_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">())</span> <span class="k">if</span> <span class="n">cards</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
                 <span class="n">decks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">decks</span><span class="o">=</span><span class="n">decks</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Fetching decks successfully&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+            <span class="n">decks</span><span class="o">=</span><span class="n">decks</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Fetching decks successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
+        <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">decks</span><span class="o">=</span><span class="p">[],</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
+
 <div class="viewcode-block" id="create">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.create">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/create&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/create&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Create a new deck.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new deck.</span>
+
 <span class="sd">    POST /deck/create</span>
 <span class="sd">    payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
-        <span class="n">description</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
-        <span class="n">visibility</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;visibility&#39;</span><span class="p">]</span>
-        
-        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
-            <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">localId</span><span class="p">,</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
-            <span class="s2">&quot;visibility&quot;</span><span class="p">:</span> <span class="n">visibility</span><span class="p">,</span>
-            <span class="s2">&quot;cards_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;lastOpened&quot;</span><span class="p">:</span> <span class="kc">None</span>
-        <span class="p">})</span>
+        <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;localId&quot;</span><span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+        <span class="n">visibility</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;visibility&quot;</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;Create Deck Successful&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">localId</span><span class="p">,</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+                <span class="s2">&quot;visibility&quot;</span><span class="p">:</span> <span class="n">visibility</span><span class="p">,</span>
+                <span class="s2">&quot;cards_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;lastOpened&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Create Deck Successful&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Create Deck Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Create Deck Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+
 
 
 <div class="viewcode-block" id="update">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.update">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/update/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PATCH&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/update/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update an existing deck.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update an existing deck.</span>
+
 <span class="sd">    PATCH /deck/update/{id}</span>
 <span class="sd">    payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
-        <span class="n">description</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
-        <span class="n">visibility</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;visibility&#39;</span><span class="p">]</span>
+        <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;localId&quot;</span><span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+        <span class="n">visibility</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;visibility&quot;</span><span class="p">]</span>
 
-        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-            <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">localId</span><span class="p">,</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
-            <span class="s2">&quot;visibility&quot;</span><span class="p">:</span> <span class="n">visibility</span>
-        <span class="p">})</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">localId</span><span class="p">,</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+                <span class="s2">&quot;visibility&quot;</span><span class="p">:</span> <span class="n">visibility</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;Update Deck Successful&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Update Deck Successful&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Update Deck Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Update Deck Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+
 
 
 <div class="viewcode-block" id="delete">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.delete">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/delete/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/delete/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Delete a deck.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete a deck.</span>
+
 <span class="sd">    DELETE /deck/delete/{id}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;Delete Deck Successful&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Delete Deck Successful&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Delete Deck Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Delete Deck Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+
 
 
 <div class="viewcode-block" id="update_last_opened">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.update_last_opened">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/updateLastOpened/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PATCH&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/updateLastOpened/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_last_opened</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update the lastOpened timestamp when a deck is opened.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the lastOpened timestamp when a deck is opened.</span>
+
 <span class="sd">    PATCH /deck/updateLastOpened/{id}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">current_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
         <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;lastOpened&quot;</span><span class="p">:</span> <span class="n">current_time</span><span class="p">})</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;Deck lastOpened updated successfully&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Deck lastOpened updated successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Failed to update lastOpened: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
-
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to update lastOpened: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="get_leaderboard">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.get_leaderboard">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deckId&gt;/leaderboard&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;deckId&gt;/leaderboard&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_leaderboard</span><span class="p">(</span><span class="n">deckId</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This endpoint fetches the leaderboard data for a specific deck.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This endpoint fetches the leaderboard data for a specific deck.</span>
+
 <span class="sd">    GET /deck/{deckId}/leaderboard</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Fetch leaderboard data for the given deck</span>
         <span class="n">leaderboard_entries</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="n">leaderboard</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">leaderboard_entries</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
-            <span class="n">leaderboard</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s2">&quot;userEmail&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;userEmail&quot;</span><span class="p">),</span>
-                <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;correct&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;incorrect&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                <span class="s2">&quot;lastAttempt&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lastAttempt&quot;</span><span class="p">)</span>
-            <span class="p">})</span>
+            <span class="n">leaderboard</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;userEmail&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;userEmail&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;correct&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;incorrect&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s2">&quot;lastAttempt&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lastAttempt&quot;</span><span class="p">),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
 
         <span class="c1"># Sort leaderboard by score (correct answers) then by last attempt (descending)</span>
         <span class="n">leaderboard</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;lastAttempt&quot;</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
-            <span class="s2">&quot;leaderboard&quot;</span><span class="p">:</span> <span class="n">leaderboard</span><span class="p">,</span>
-            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Leaderboard data fetched successfully&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span>
-        <span class="p">}),</span> <span class="mi">200</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;leaderboard&quot;</span><span class="p">:</span> <span class="n">leaderboard</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Leaderboard data fetched successfully&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
-            <span class="s2">&quot;leaderboard&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">400</span>
-        <span class="p">}),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">}</span>
+        <span class="p">),</span> <span class="mi">400</span></div>
 
-    
+
+
 <div class="viewcode-block" id="update_leaderboard">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.update_leaderboard">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deck_id&gt;/update-leaderboard&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;deck_id&gt;/update-leaderboard&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_leaderboard</span><span class="p">(</span><span class="n">deck_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    POST /deck/{deck_id}/update-leaderboard</span>
 <span class="sd">    payload: { userId: “string”, userEmail: “string”, correct: “number”, incorrect: “number” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="c1"># Extract values from the request body</span>
@@ -313,32 +330,39 @@
         <span class="n">incorrect</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;incorrect&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">user_id</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;User ID is required&quot;</span><span class="p">}),</span> <span class="mi">400</span>  <span class="c1"># Validate userId presence</span>
+            <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;User ID is required&quot;</span><span class="p">}</span>
+            <span class="p">),</span> <span class="mi">400</span>  <span class="c1"># Validate userId presence</span>
 
         <span class="c1"># Use user_id from request body to update the leaderboard</span>
         <span class="n">leaderboard_ref</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">deck_id</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-        <span class="n">leaderboard_ref</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-            <span class="s2">&quot;userEmail&quot;</span><span class="p">:</span> <span class="n">user_email</span><span class="p">,</span>
-            <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="n">correct</span><span class="p">,</span>
-            <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="n">incorrect</span><span class="p">,</span>
-            <span class="s2">&quot;lastAttempt&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-        <span class="p">})</span>
+        <span class="n">leaderboard_ref</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;userEmail&quot;</span><span class="p">:</span> <span class="n">user_email</span><span class="p">,</span>
+                <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="n">correct</span><span class="p">,</span>
+                <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="n">incorrect</span><span class="p">,</span>
+                <span class="s2">&quot;lastAttempt&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Leaderboard updated successfully&quot;</span><span class="p">}),</span> <span class="mi">200</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Failed to update leaderboard&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}),</span> <span class="mi">500</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Failed to update leaderboard&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+        <span class="p">),</span> <span class="mi">500</span></div>
 
-    
+
+
 <div class="viewcode-block" id="get_user_score">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.get_user_score">[docs]</a>
-<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deckId&gt;/user-score/&lt;userId&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;deckId&gt;/user-score/&lt;userId&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_user_score</span><span class="p">(</span><span class="n">deckId</span><span class="p">,</span> <span class="n">userId</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This endpoint fetches the user&#39;s score for a specific deck. If the user doesn&#39;t exist, return zero for all score values.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This endpoint fetches the user&#39;s score for a specific deck. If the user doesn&#39;t exist, return zero for all score values.</span>
+
 <span class="sd">    GET /deck/{deckId}/user-score/{userId}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Fetch the user&#39;s leaderboard entry for the specified deck</span>
         <span class="n">leaderboard_entry</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
@@ -349,27 +373,26 @@
                 <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;correct&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                 <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;incorrect&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
             <span class="p">}</span>
-            <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
-                <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">score_data</span><span class="p">,</span>
-                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;User score fetched successfully&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span>
-            <span class="p">}),</span> <span class="mi">200</span>
+            <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">score_data</span><span class="p">,</span>
+                    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;User score fetched successfully&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">),</span> <span class="mi">200</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Return zero for all score values if no entry exists</span>
-            <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
-                <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="mi">0</span>
-                <span class="p">},</span>
-                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No score found for the user, returning zeros.&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span>  <span class="c1"># Not Found status, as the user has no scores yet</span>
-            <span class="p">}),</span> <span class="mi">200</span>
+            <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;incorrect&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No score found for the user, returning zeros.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>  <span class="c1"># Not Found status, as the user has no scores yet</span>
+                <span class="p">}</span>
+            <span class="p">),</span> <span class="mi">200</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
-            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">400</span>
-        <span class="p">}),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">}),</span> <span class="mi">400</span></div>
+
 
 
 <span class="c1"># @deck_bp.route(&#39;/deck/&lt;id&gt;/last-opened&#39;, methods=[&#39;PATCH&#39;])</span>
@@ -378,7 +401,7 @@
 <span class="c1">#     try:</span>
 <span class="c1">#         data = request.get_json()</span>
 <span class="c1">#         last_opened_at = data.get(&#39;lastOpenedAt&#39;)</span>
-        
+
 <span class="c1">#         db.child(&quot;deck&quot;).child(id).update({</span>
 <span class="c1">#             &quot;lastOpenedAt&quot;: last_opened_at</span>
 <span class="c1">#         })</span>

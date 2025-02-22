@@ -66,7 +66,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for src.folders.routes</h1><div class="highlight"><pre>
-<span></span> <span class="c1"># MIT License</span>
+<span></span><span class="c1"># MIT License</span>
 <span class="c1">#</span>
 <span class="c1"># Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto</span>
 <span class="c1">#</span>
@@ -81,286 +81,242 @@
 <span class="c1"># copies or substantial portions of the Software.</span>
 <span class="c1">#</span>
 <span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1">#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1">#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1">#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1">#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1">#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
-<span class="c1">#SOFTWARE.</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
 
-<span class="sd">&#39;&#39;&#39;routes.py is a file in the folder folder that has all the functions defined that manipulate folders. All CRUD functions are defined here.&#39;&#39;&#39;</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">request</span> <span class="c1"># type: ignore</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">flask_cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_origin</span> <span class="c1"># type: ignore</span>
+<span class="sd">&quot;&quot;&quot;routes.py is a file in the folder folder that has all the functions defined that manipulate folders. All CRUD functions are defined here.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">request</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask_cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_origin</span>  <span class="c1"># type: ignore</span>
 <span class="c1"># from __init__ import firebase</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">firebase</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">__init__</span><span class="w"> </span><span class="kn">import</span> <span class="n">firebase</span>
-    
-<span class="n">folder_bp</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span>
-    <span class="s1">&#39;folder_bp&#39;</span><span class="p">,</span> <span class="vm">__name__</span>
-<span class="p">)</span>
+
+<span class="n">folder_bp</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s2">&quot;folder_bp&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">db</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
 
+
 <div class="viewcode-block" id="getfolder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.getfolder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/folder/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/folder/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getfolder</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when we want to fetch one of the folders by folder ID</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when we want to fetch one of the folders by folder ID</span>
+
 <span class="sd">    GET /folder/{id}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">folder</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">folder</span><span class="o">=</span><span class="n">folder</span><span class="o">.</span><span class="n">val</span><span class="p">(),</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Fetched folder successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
+            <span class="n">folder</span><span class="o">=</span><span class="n">folder</span><span class="o">.</span><span class="n">val</span><span class="p">(),</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Fetched folder successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
         <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">folder</span><span class="o">=</span><span class="p">{},</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="p">{},</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="getfolders">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.getfolders">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/folders/all&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/folders/all&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getfolders</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when we want to fetch all folders for a specific user</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when we want to fetch all folders for a specific user</span>
+
 <span class="sd">    GET /folders/all</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span>
-    <span class="n">userId</span> <span class="o">=</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span>
+    <span class="n">userId</span> <span class="o">=</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;userId&quot;</span><span class="p">]</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">user_folders</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">user_folders</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">userId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="n">folders</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">user_folders</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="n">folder</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
-            <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">folder</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
-            <span class="n">decks</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;folderId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;decks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">folder</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+            <span class="n">decks</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;folderId&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">key</span><span class="p">())</span>
+                <span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;decks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="n">decks</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
                 <span class="k">for</span> <span class="n">deck</span> <span class="ow">in</span> <span class="n">decks</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
                     <span class="n">deck_obj</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
-                    <span class="n">deck_obj</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
-                    <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;decks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deck_obj</span><span class="p">)</span>
+                    <span class="n">deck_obj</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+                    <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;decks&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deck_obj</span><span class="p">)</span>
 
-            <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;decks_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;decks&#39;</span><span class="p">])</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;decks_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s2">&quot;decks&quot;</span><span class="p">])</span>
             <span class="n">folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">folders</span><span class="o">=</span><span class="n">folders</span><span class="p">,</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Fetched folders successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
+            <span class="n">folders</span><span class="o">=</span><span class="n">folders</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Fetched folders successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
         <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">folders</span><span class="o">=</span><span class="p">[],</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">folders</span><span class="o">=</span><span class="p">[],</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="createfolder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.createfolder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/folder/create&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/folder/create&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">createfolder</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    POST /folder/create</span>
 <span class="sd">    payload: { name: “string”, userId: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-        <span class="n">folder_name</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-        <span class="n">user_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span>
-        <span class="n">folder_ref</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">folder_name</span><span class="p">,</span>
-            <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">user_id</span>
-        <span class="p">})</span>
-        <span class="n">new_folder_id</span> <span class="o">=</span> <span class="n">folder_ref</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>  <span class="c1"># Retrieve auto-generated ID</span>
+        <span class="n">folder_name</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;userId&quot;</span><span class="p">]</span>
+        <span class="n">folder_ref</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">folder_name</span><span class="p">,</span> <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+        <span class="n">new_folder_id</span> <span class="o">=</span> <span class="n">folder_ref</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>  <span class="c1"># Retrieve auto-generated ID</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">folder</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">new_folder_id</span><span class="p">,</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">folder_name</span><span class="p">,</span>
-                <span class="s2">&quot;decks&quot;</span><span class="p">:</span> <span class="p">[]</span>
-            <span class="p">},</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Folder created successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">201</span>
+            <span class="n">folder</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">new_folder_id</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">folder_name</span><span class="p">,</span> <span class="s2">&quot;decks&quot;</span><span class="p">:</span> <span class="p">[]},</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Folder created successfully&quot;</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">,</span>
         <span class="p">),</span> <span class="mi">201</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to create folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
-
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to create folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="updatefolder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.updatefolder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/folder/update/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PATCH&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/folder/update/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">updatefolder</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when the user wants to update a folder&#39;s name.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when the user wants to update a folder&#39;s name.</span>
+
 <span class="sd">    PATCH /folder/update/{id}</span>
 <span class="sd">    payload: { name: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">folder_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">folder_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
-        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">folder_name</span>
-        <span class="p">})</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">folder_name</span><span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Folder updated successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">201</span>
-        <span class="p">),</span> <span class="mi">201</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Folder updated successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to update folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to update folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="deletefolder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.deletefolder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/folder/delete/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/folder/delete/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">deletefolder</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when the user requests to delete a folder.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when the user requests to delete a folder.</span>
+
 <span class="sd">    DELETE /folder/delete/{id}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Folder deleted successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
-        <span class="p">),</span> <span class="mi">200</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Folder deleted successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to delete folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to delete folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="adddecktofolder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.adddecktofolder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/add-deck&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/add-deck&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">adddecktofolder</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method allows the user to add a deck to a folder by folderId and deckId.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method allows the user to add a deck to a folder by folderId and deckId.</span>
+
 <span class="sd">    POST /deck/add-deck</span>
 <span class="sd">    payload: { folderId: “string”, deckId: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">folder_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;folderId&#39;</span><span class="p">]</span>
-        <span class="n">deck_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;deckId&#39;</span><span class="p">]</span>
+        <span class="n">folder_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;folderId&quot;</span><span class="p">]</span>
+        <span class="n">deck_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;deckId&quot;</span><span class="p">]</span>
 
-        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
-            <span class="s2">&quot;folderId&quot;</span><span class="p">:</span> <span class="n">folder_id</span><span class="p">,</span>
-            <span class="s2">&quot;deckId&quot;</span><span class="p">:</span> <span class="n">deck_id</span>
-        <span class="p">})</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;folderId&quot;</span><span class="p">:</span> <span class="n">folder_id</span><span class="p">,</span> <span class="s2">&quot;deckId&quot;</span><span class="p">:</span> <span class="n">deck_id</span><span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Deck added to folder successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">201</span>
-        <span class="p">),</span> <span class="mi">201</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Deck added to folder successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to add deck to folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to add deck to folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="removedeckfromfolder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.removedeckfromfolder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/folder/remove-deck&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/folder/remove-deck&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">removedeckfromfolder</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method allows the user to remove a deck from a folder by folderId and deckId.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method allows the user to remove a deck from a folder by folderId and deckId.</span>
+
 <span class="sd">    DELETE /folder/remove-deck</span>
 <span class="sd">    payload: { folderId: “string”, deckId: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">folder_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;folderId&#39;</span><span class="p">]</span>
-        <span class="n">deck_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;deckId&#39;</span><span class="p">]</span>
+        <span class="n">folder_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;folderId&quot;</span><span class="p">]</span>
+        <span class="n">deck_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;deckId&quot;</span><span class="p">]</span>
 
-        <span class="n">folder_deck_ref</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;folderId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">folder_id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">folder_deck_ref</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;folderId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">folder_id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="n">folder_deck_ref</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">fd</span><span class="o">.</span><span class="n">val</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deckId&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">deck_id</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fd</span><span class="o">.</span><span class="n">val</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">deck_id</span><span class="p">:</span>
                 <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
                 <span class="k">break</span>
 
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Deck removed from folder successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
-        <span class="p">),</span> <span class="mi">200</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Deck removed from folder successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to remove deck from folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
+            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to remove deck from folder: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
         <span class="p">),</span> <span class="mi">400</span></div>
 
-    
+
+
 <div class="viewcode-block" id="get_decks_for_folder">
 <a class="viewcode-back" href="../../../index.html#src.folders.routes.get_decks_for_folder">[docs]</a>
-<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/decks/&lt;folder_id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@folder_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/decks/&lt;folder_id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_decks_for_folder</span><span class="p">(</span><span class="n">folder_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called to fetch all decks for a specific folder.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called to fetch all decks for a specific folder.</span>
+
 <span class="sd">    GET /decks/{folder_id}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">folder_obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;folderId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">folder_id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">folder_obj</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;folder_deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;folderId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">folder_id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="n">deck_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">folders</span> <span class="ow">in</span> <span class="n">folder_obj</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="n">folders</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obj: &quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
-            <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">folders</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>  <span class="c1"># Optional: if you need the deck ID</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">folders</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>  <span class="c1"># Optional: if you need the deck ID</span>
             <span class="n">deck_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s2">&quot;deckId&quot;</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;deck_list&quot;</span><span class="p">,</span> <span class="n">deck_list</span><span class="p">)</span>
         <span class="n">deck_title</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">deck</span> <span class="ow">in</span> <span class="n">deck_list</span><span class="p">:</span>
             <span class="n">deck_obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;deck&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="n">deck_title</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">deck</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">deck_obj</span><span class="o">.</span><span class="n">val</span><span class="p">()[</span><span class="s2">&quot;title&quot;</span><span class="p">]}</span> <span class="p">)</span>
+            <span class="n">deck_title</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">deck</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">deck_obj</span><span class="o">.</span><span class="n">val</span><span class="p">()[</span><span class="s2">&quot;title&quot;</span><span class="p">]})</span>
 
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">decks</span><span class="o">=</span><span class="n">deck_title</span><span class="p">,</span>
-            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Fetched decks successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
+            <span class="n">decks</span><span class="o">=</span><span class="n">deck_title</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Fetched decks successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
         <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">decks</span><span class="o">=</span><span class="p">[],</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">decks</span><span class="o">=</span><span class="p">[],</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 </pre></div>
 

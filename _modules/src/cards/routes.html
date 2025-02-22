@@ -68,29 +68,30 @@
   <h1>Source code for src.cards.routes</h1><div class="highlight"><pre>
 <span></span><span class="c1"># backend/src/card/routes.py</span>
 <span class="c1">#</span>
-<span class="c1">#MIT License</span>
+<span class="c1"># MIT License</span>
 <span class="c1">#</span>
-<span class="c1">#Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto</span>
+<span class="c1"># Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto</span>
 <span class="c1">#</span>
-<span class="c1">#Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1">#of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1">#in the Software without restriction, including without limitation the rights</span>
-<span class="c1">#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1">#copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1">#furnished to do so, subject to the following conditions:</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
 <span class="c1">#</span>
-<span class="c1">#The above copyright notice and this permission notice shall be included in all</span>
-<span class="c1">#copies or substantial portions of the Software.</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
 <span class="c1">#</span>
-<span class="c1">#THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1">#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1">#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1">#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1">#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1">#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
-<span class="c1">#SOFTWARE.</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
 
-<span class="sd">&#39;&#39;&#39;routes.py is a file in cards folder that has all the functions defined that manipulate the cards. All CRUD functions that needs to be performed on cards are defined here.&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;routes.py is a file in cards folder that has all the functions defined that manipulate the cards. All CRUD functions that needs to be performed on cards are defined here.&quot;&quot;&quot;</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">request</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flask_cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_origin</span>
 
@@ -99,141 +100,124 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">__init__</span><span class="w"> </span><span class="kn">import</span> <span class="n">firebase</span>
 
-<span class="n">card_bp</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span>
-    <span class="s1">&#39;card_bp&#39;</span><span class="p">,</span> <span class="vm">__name__</span>
-<span class="p">)</span>
+<span class="n">card_bp</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s2">&quot;card_bp&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">db</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="getcards">
 <a class="viewcode-back" href="../../../index.html#src.cards.routes.getcards">[docs]</a>
-<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deckId&gt;/card/all&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;deckId&gt;/card/all&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">getcards</span><span class="p">(</span><span class="n">deckId</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when the user want to fetch all of the cards in a deck. Only the deckid is required to fetch all cards from the required deck.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when the user want to fetch all of the cards in a deck. Only the deckid is required to fetch all cards from the required deck.</span>
+
 <span class="sd">    GET /deck/{deckId}/card/all</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">user_cards</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="n">cards</span> <span class="o">=</span> <span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">user_cards</span><span class="o">.</span><span class="n">each</span><span class="p">()]</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">cards</span> <span class="o">=</span> <span class="n">cards</span><span class="p">,</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Fetching cards successfully&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">200</span>
+            <span class="n">cards</span><span class="o">=</span><span class="n">cards</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Fetching cards successfully&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span>
         <span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">cards</span> <span class="o">=</span> <span class="p">[],</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;An error occurred </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">cards</span><span class="o">=</span><span class="p">[],</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;An error occurred </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="createcards">
 <a class="viewcode-back" href="../../../index.html#src.cards.routes.createcards">[docs]</a>
-<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;deckId&gt;/card/create&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;deckId&gt;/card/create&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">createcards</span><span class="p">(</span><span class="n">deckId</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is routed when the user requests to create new cards in a deck. </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is routed when the user requests to create new cards in a deck.</span>
 <span class="sd">    Only the deckid is required to add cards to a deck.</span>
-<span class="sd">    </span>
+
 <span class="sd">    POST /deck/{deckId}/card/create</span>
 <span class="sd">    payload: { localId: “string”, cards: [{front: “string”, back: “string”, hint: “string”}] }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
-        <span class="n">cards</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cards&#39;</span><span class="p">]</span>
-<span class="w">        </span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;remove existing cards&#39;&#39;&#39;</span>
-        <span class="n">previous_cards</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">localId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;localId&quot;</span><span class="p">]</span>
+        <span class="n">cards</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;cards&quot;</span><span class="p">]</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;remove existing cards&quot;&quot;&quot;</span>
+        <span class="n">previous_cards</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;deckId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">deckId</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">previous_cards</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
             <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">key</span><span class="p">())</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-<span class="w">        </span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;add new cards&#39;&#39;&#39;</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;add new cards&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
-            <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
-                <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">localId</span><span class="p">,</span>
-                <span class="s2">&quot;deckId&quot;</span><span class="p">:</span> <span class="n">deckId</span><span class="p">,</span>
-                <span class="s2">&quot;front&quot;</span><span class="p">:</span> <span class="n">card</span><span class="p">[</span><span class="s1">&#39;front&#39;</span><span class="p">],</span> 
-                <span class="s2">&quot;back&quot;</span><span class="p">:</span> <span class="n">card</span><span class="p">[</span><span class="s1">&#39;back&#39;</span><span class="p">],</span>
-                <span class="s2">&quot;hint&quot;</span><span class="p">:</span> <span class="n">card</span><span class="p">[</span><span class="s1">&#39;hint&#39;</span><span class="p">]</span>
-            <span class="p">})</span>
-        
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Adding cards Successful&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">201</span>
-        <span class="p">),</span> <span class="mi">201</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">localId</span><span class="p">,</span>
+                    <span class="s2">&quot;deckId&quot;</span><span class="p">:</span> <span class="n">deckId</span><span class="p">,</span>
+                    <span class="s2">&quot;front&quot;</span><span class="p">:</span> <span class="n">card</span><span class="p">[</span><span class="s2">&quot;front&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;back&quot;</span><span class="p">:</span> <span class="n">card</span><span class="p">[</span><span class="s2">&quot;back&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;hint&quot;</span><span class="p">:</span> <span class="n">card</span><span class="p">[</span><span class="s2">&quot;hint&quot;</span><span class="p">],</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Adding cards Successful&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Adding cards Failed&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Adding cards Failed&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 
 
 <div class="viewcode-block" id="updatecard">
 <a class="viewcode-back" href="../../../index.html#src.cards.routes.updatecard">[docs]</a>
-<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;id&gt;/update/&lt;cardid&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PATCH&#39;</span><span class="p">])</span>
+<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;id&gt;/update/&lt;cardid&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">updatecard</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">cardid</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when the user requests to update cards in a deck. The card can be updated in terms of its word and meaning.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">updatecard</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">cardid</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when the user requests to update cards in a deck. The card can be updated in terms of its word and meaning.</span>
 <span class="sd">    Here deckid and cardid is required to uniquely identify a updating card.</span>
-<span class="sd">    </span>
+
 <span class="sd">    PATCH /deck/{id}/update/{cardid}</span>
 <span class="sd">    payload: { word: “string”, meaning: “string” }</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="n">deckid</span> <span class="o">=</span> <span class="nb">id</span>
-        <span class="n">cardid</span><span class="o">=</span><span class="n">cardid</span>
-        <span class="n">word</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">]</span>
-        <span class="n">meaning</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;meaning&#39;</span><span class="p">]</span>
-        
-        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;Id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deckid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">cardid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-            <span class="s2">&quot;Id&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deckid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">cardid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;deckid&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="n">deckid</span><span class="p">},</span> <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="n">word</span><span class="p">,</span> <span class="s2">&quot;meaning&quot;</span><span class="p">:</span> <span class="n">meaning</span>
-        <span class="p">})</span>
-        
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Update Card Successful&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">201</span>
-        <span class="p">),</span> <span class="mi">201</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Update Card Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="n">cardid</span> <span class="o">=</span> <span class="n">cardid</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span>
+        <span class="n">meaning</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;meaning&quot;</span><span class="p">]</span>
 
- 
+        <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;Id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deckid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">cardid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Id&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deckid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">cardid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deckid&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">deckid</span><span class="p">},</span>
+                <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="n">word</span><span class="p">,</span>
+                <span class="s2">&quot;meaning&quot;</span><span class="p">:</span> <span class="n">meaning</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Update Card Successful&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">),</span> <span class="mi">201</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Update Card Failed </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
+
+
 
 <div class="viewcode-block" id="deletecard">
 <a class="viewcode-back" href="../../../index.html#src.cards.routes.deletecard">[docs]</a>
-<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/deck/&lt;id&gt;/delete/&lt;cardid&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<span class="nd">@card_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;id&gt;/delete/&lt;cardid&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
 <span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">deletecard</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">cardid</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;This method is called when the user requests to delete the card. The deckid and the particular cardid is required to delete the card.</span>
-<span class="sd">    </span>
+<span class="k">def</span><span class="w"> </span><span class="nf">deletecard</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">cardid</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method is called when the user requests to delete the card. The deckid and the particular cardid is required to delete the card.</span>
+
 <span class="sd">    DELETE /deck/{id}/delete/{cardid}</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="n">deckid</span> <span class="o">=</span> <span class="nb">id</span>
-        <span class="n">cardid</span><span class="o">=</span><span class="n">cardid</span>
-        
+        <span class="n">cardid</span> <span class="o">=</span> <span class="n">cardid</span>
+
         <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by_child</span><span class="p">(</span><span class="s2">&quot;Id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deckid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">cardid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-        
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Delete Card Successful&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">200</span>
-        <span class="p">),</span> <span class="mi">200</span>
+
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Delete Card Successful&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="mi">200</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Delete Card Failed&#39;</span><span class="p">,</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="mi">400</span>
-        <span class="p">),</span> <span class="mi">400</span></div>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Delete Card Failed&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="mi">400</span></div>
 
 </pre></div>
 
