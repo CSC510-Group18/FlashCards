@@ -65,9 +65,12 @@
 <li><a class="reference internal" href="#src.deck.routes.create"><code class="docutils literal notranslate"><span class="pre">create()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.get_leaderboard"><code class="docutils literal notranslate"><span class="pre">get_leaderboard()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.get_practice_cards"><code class="docutils literal notranslate"><span class="pre">get_practice_cards()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.get_user_score"><code class="docutils literal notranslate"><span class="pre">get_user_score()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.getdeck"><code class="docutils literal notranslate"><span class="pre">getdeck()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.getdecks"><code class="docutils literal notranslate"><span class="pre">getdecks()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.practice_schedule"><code class="docutils literal notranslate"><span class="pre">practice_schedule()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.record_answer"><code class="docutils literal notranslate"><span class="pre">record_answer()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.update"><code class="docutils literal notranslate"><span class="pre">update()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.update_last_opened"><code class="docutils literal notranslate"><span class="pre">update_last_opened()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.update_leaderboard"><code class="docutils literal notranslate"><span class="pre">update_leaderboard()</span></code></a></li>
@@ -162,22 +165,18 @@ payload: { email: “string”, password: “string” }</p>
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">createcards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#createcards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.createcards" title="Link to this definition"></a></dt>
 <dd><p>This method is routed when the user requests to create new cards in a deck.
 Only the deckid is required to add cards to a deck.</p>
-<p>POST /deck/{deckId}/card/create
-payload: { localId: “string”, cards: [{front: “string”, back: “string”, hint: “string”}] }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.cards.routes.deletecard">
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">deletecard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#deletecard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.deletecard" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user requests to delete the card. The deckid and the particular cardid is required to delete the card.</p>
-<p>DELETE /deck/{id}/delete/{cardid}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.cards.routes.getcards">
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">getcards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#getcards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.getcards" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user want to fetch all of the cards in a deck. Only the deckid is required to fetch all cards from the required deck.</p>
-<p>GET /deck/{deckId}/card/all</p>
 </dd></dl>
 
 <dl class="py function">
@@ -185,8 +184,6 @@ payload: { localId: “string”, cards: [{front: “string”, back: “string�
 <span class="sig-prename descclassname"><span class="pre">src.cards.routes.</span></span><span class="sig-name descname"><span class="pre">updatecard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/cards/routes.html#updatecard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.cards.routes.updatecard" title="Link to this definition"></a></dt>
 <dd><p>This method is called when the user requests to update cards in a deck. The card can be updated in terms of its word and meaning.
 Here deckid and cardid is required to uniquely identify a updating card.</p>
-<p>PATCH /deck/{id}/update/{cardid}
-payload: { word: “string”, meaning: “string” }</p>
 </dd></dl>
 
 </section>
@@ -197,66 +194,72 @@ payload: { word: “string”, meaning: “string” }</p>
 <dt class="sig sig-object py" id="src.deck.routes.create">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.create" title="Link to this definition"></a></dt>
 <dd><p>Create a new deck.</p>
-<p>POST /deck/create
-payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.delete">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.delete" title="Link to this definition"></a></dt>
 <dd><p>Delete a deck.</p>
-<p>DELETE /deck/delete/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.get_leaderboard">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_leaderboard" title="Link to this definition"></a></dt>
 <dd><p>This endpoint fetches the leaderboard data for a specific deck.</p>
-<p>GET /deck/{deckId}/leaderboard</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.get_practice_cards">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_practice_cards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deck_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_practice_cards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_practice_cards" title="Link to this definition"></a></dt>
+<dd><p>Get cards due for review using spaced repetition</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.get_user_score">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_user_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_user_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_user_score" title="Link to this definition"></a></dt>
 <dd><p>This endpoint fetches the user’s score for a specific deck. If the user doesn’t exist, return zero for all score values.</p>
-<p>GET /deck/{deckId}/user-score/{userId}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.getdeck">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdeck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdeck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdeck" title="Link to this definition"></a></dt>
 <dd><p>This method fetches a specific deck by its ID.</p>
-<p>GET /deck/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.getdecks">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdecks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdecks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdecks" title="Link to this definition"></a></dt>
 <dd><p>Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</p>
-<p>GET /deck/all</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.practice_schedule">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">practice_schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deck_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#practice_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.practice_schedule" title="Link to this definition"></a></dt>
+<dd><p>Get the practice schedule for future iterations of cards</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.record_answer">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">record_answer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#record_answer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.record_answer" title="Link to this definition"></a></dt>
+<dd><p>Update card progress using SM-2 algorithm with frontend-provided ease</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.update">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update" title="Link to this definition"></a></dt>
 <dd><p>Update an existing deck.</p>
-<p>PATCH /deck/update/{id}
-payload: { localId: “string”, title: “string”, description: “string”, visibility: “string” }</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.update_last_opened">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update_last_opened</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update_last_opened"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update_last_opened" title="Link to this definition"></a></dt>
 <dd><p>Update the lastOpened timestamp when a deck is opened.</p>
-<p>PATCH /deck/updateLastOpened/{id}</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.update_leaderboard">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">update_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deck_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#update_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.update_leaderboard" title="Link to this definition"></a></dt>
-<dd><p>POST /deck/{deck_id}/update-leaderboard
-payload: { userId: “string”, userEmail: “string”, correct: “number”, incorrect: “number” }</p>
-</dd></dl>
+<dd></dd></dl>
 
 </section>
 <section id="module-src.folders.routes">
