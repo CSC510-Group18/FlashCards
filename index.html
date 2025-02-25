@@ -64,11 +64,13 @@
 <li><a class="reference internal" href="#module-src.deck.routes">Deck Module</a><ul>
 <li><a class="reference internal" href="#src.deck.routes.create"><code class="docutils literal notranslate"><span class="pre">create()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.export_deck"><code class="docutils literal notranslate"><span class="pre">export_deck()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.get_leaderboard"><code class="docutils literal notranslate"><span class="pre">get_leaderboard()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.get_practice_cards"><code class="docutils literal notranslate"><span class="pre">get_practice_cards()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.get_user_score"><code class="docutils literal notranslate"><span class="pre">get_user_score()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.getdeck"><code class="docutils literal notranslate"><span class="pre">getdeck()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.getdecks"><code class="docutils literal notranslate"><span class="pre">getdecks()</span></code></a></li>
+<li><a class="reference internal" href="#src.deck.routes.import_deck"><code class="docutils literal notranslate"><span class="pre">import_deck()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.practice_schedule"><code class="docutils literal notranslate"><span class="pre">practice_schedule()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.record_answer"><code class="docutils literal notranslate"><span class="pre">record_answer()</span></code></a></li>
 <li><a class="reference internal" href="#src.deck.routes.update"><code class="docutils literal notranslate"><span class="pre">update()</span></code></a></li>
@@ -203,6 +205,12 @@ Here deckid and cardid is required to uniquely identify a updating card.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.export_deck">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">export_deck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#export_deck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.export_deck" title="Link to this definition"></a></dt>
+<dd><p>Export a deck and its cards to a JSON file</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="src.deck.routes.get_leaderboard">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">get_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deckId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#get_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.get_leaderboard" title="Link to this definition"></a></dt>
 <dd><p>This endpoint fetches the leaderboard data for a specific deck.</p>
@@ -230,6 +238,12 @@ Here deckid and cardid is required to uniquely identify a updating card.</p>
 <dt class="sig sig-object py" id="src.deck.routes.getdecks">
 <span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">getdecks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#getdecks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.getdecks" title="Link to this definition"></a></dt>
 <dd><p>Fetch all decks. Shows private decks for authenticated users and public decks for non-authenticated users.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.deck.routes.import_deck">
+<span class="sig-prename descclassname"><span class="pre">src.deck.routes.</span></span><span class="sig-name descname"><span class="pre">import_deck</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/deck/routes.html#import_deck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.deck.routes.import_deck" title="Link to this definition"></a></dt>
+<dd><p>Import a deck and its cards from a JSON file</p>
 </dd></dl>
 
 <dl class="py function">
