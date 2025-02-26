@@ -105,17 +105,23 @@
             <span class="kn">from</span><span class="w"> </span><span class="nn">.deck.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">deck_bp</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">.cards.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">card_bp</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">.folders.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">folder_bp</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.user.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">user_bp</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.leaderboard.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">leaderboard_bp</span>
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">auth.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">auth_bp</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">deck.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">deck_bp</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">cards.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">card_bp</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">folders.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">folder_bp</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">user.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">user_bp</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">leaderboard.routes</span><span class="w"> </span><span class="kn">import</span> <span class="n">leaderboard_bp</span>
 
         <span class="c1"># Register Blueprints</span>
         <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">auth_bp</span><span class="p">)</span>
         <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">deck_bp</span><span class="p">)</span>
         <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">card_bp</span><span class="p">)</span>
         <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">folder_bp</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">user_bp</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">leaderboard_bp</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">app</span></div>
 

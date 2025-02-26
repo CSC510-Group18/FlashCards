@@ -120,6 +120,39 @@
 
 
 
+<div class="viewcode-block" id="get_deck_stats">
+<a class="viewcode-back" href="../../../index.html#src.deck.routes.get_deck_stats">[docs]</a>
+<span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/&lt;id&gt;/stats&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="nd">@cross_origin</span><span class="p">(</span><span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_deck_stats</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This method calculates stats of a specific deck by its ID.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">leaderboard_entries</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;leaderboard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">total_users</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_correct</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_incorrect</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">leaderboard_entries</span><span class="o">.</span><span class="n">val</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">leaderboard_entries</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">total_correct</span> <span class="o">+=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;correct&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">total_incorrect</span> <span class="o">+=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;incorrect&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">total_users</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">avg_correct</span> <span class="o">=</span> <span class="n">total_correct</span> <span class="o">/</span> <span class="n">total_users</span> <span class="k">if</span> <span class="n">total_users</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">avg_incorrect</span> <span class="o">=</span> <span class="n">total_incorrect</span> <span class="o">/</span> <span class="n">total_users</span> <span class="k">if</span> <span class="n">total_users</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;average_correct&quot;</span><span class="p">:</span> <span class="n">avg_correct</span><span class="p">,</span>
+                <span class="s2">&quot;average_incorrect&quot;</span><span class="p">:</span> <span class="n">avg_incorrect</span><span class="p">,</span>
+                <span class="s2">&quot;total_users&quot;</span><span class="p">:</span> <span class="n">total_users</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Deck performance statistics fetched successfully&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">),</span> <span class="mi">200</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Error fetching deck stats: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">}),</span> <span class="mi">400</span></div>
+
+
+
 <div class="viewcode-block" id="getdecks">
 <a class="viewcode-back" href="../../../index.html#src.deck.routes.getdecks">[docs]</a>
 <span class="nd">@deck_bp</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/deck/all&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
